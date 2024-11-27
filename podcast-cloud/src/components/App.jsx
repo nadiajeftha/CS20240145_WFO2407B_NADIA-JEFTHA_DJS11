@@ -20,9 +20,10 @@ import { useState, useEffect } from "react";
     try {
       const res = await fetch (API_URL)
       if (!res.ok) throw new Error ("Failed to fetch shows.")
+
         const data = await res.json()
-      const aplhSorted = shows.sort((a,b) => //sorts title of shows alphabetically
-  a.title.localCompare (b.title))
+        const aplhSorted = data.sort((a,b) => //sorts title of shows alphabetically
+    a.title.localeCompare (b.title))
   setShows(aplhSorted)
 } catch (err) {
   setError (err.message) 
@@ -89,7 +90,7 @@ const filteredShows = filterGenre ? shows.filter((show) => show.genres.includes(
       <img
       src={show.image}
       alt={show.title}
-      style= />
+      style={} />
 
       <p>{show.description}</p>
       <button onClick={() => showById(show.id)}>View Show Details</button>
@@ -97,4 +98,21 @@ const filteredShows = filterGenre ? shows.filter((show) => show.genres.includes(
   ))}
 </div>
 
+{/*details of show selected*/} 
+{showId && (
+  <div>
+    <h2>{showId.title}</h2>
+    <img
+    src={showId.image}
+    alt={showId.title}
+    style={} />
+<p>{showId.description}</p>
+<p>Total Seasons: {showId.seasons}</p>
+<p>Last Updated:{""} {new Date(showId.updated).toLocaleDateString()}</p>
+
+</div>
+)}
+
+</div>
+  )}
 export default App;
