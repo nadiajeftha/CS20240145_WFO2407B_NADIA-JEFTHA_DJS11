@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 
   //state vars
   function App(){
-  const [show, setShow] = useState([]); //show=store fetched show data, setShow=update
+  const [shows, setShows] = useState([]); //shows=store fetched show data, setShows=update
   const [showId,setShowId] =useState(null) //showId=storing spesific show, setShowId=updte
   const [loading, setLoading] = useState(true); //loading=data still being fetched? , setLoading=update
   const [error, setError] = useState(null); //error=stores errors while fetching , setError=update
@@ -12,52 +12,89 @@ import { useState, useEffect } from "react";
 
   const API_URL=  "https://podcast-api.netlify.app/" //fetch show data from endpoint
   const SHOW_ID_PATH= "id/"
-  
-  const aplhSorted = show.sort((a,b) => //sorts title of shows alphabetically
+
+
+  const fetchAllShows = async () => {
+    setLoading(true)
+    setError(null)
+    try {
+      const res = await fetch (API_URL)
+      if (!res.ok) throw new Error ("Failed to fetch shows.")
+        const data = await res.json()
+      const aplhSorted = shows.sort((a,b) => //sorts title of shows alphabetically
   a.title.localCompare (b.title))
+  setShows(aplhSorted)
+} catch (err) {
+  setError (err.message) 
+} finally {
+  setLoading(false)
+}
+ }
+  
+ //fetching data from a spesific show
+ const showById = async (id) => {
+  setLoading(true)
+  setError(null)
+  try {
+    const res = await fetch(API_URL + SHOW_ID_PATH + id)
+    if (!res.ok) throw new Error ("Failed to fetch show details.")
+      const data = await res.json()
+    setShowId(data)
+} catch (err) {
+  setError(err.message)
+} finally {
+  setLoading(false)
+}
+  }
+ 
+  //filtering shows by genre
+  const filterByGenre = (genreId) => {
+    setFilterGenre(genreId) //setting the genre selected
+  }
+  
+//filtered shows
+const filteredShows = filterGenre ? shows.filter((show) => show.genres.includes(filterGenre)) : shows
 
+ //fetch data from API 
   useEffect(() => {
-    //fetch data from API 
+    fetchAllShows() } , [] )
+   
+    if (loading){ return <p>Loading...</p>}
+    if (error) {return <p>Error: {error}</p>}
 
 
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error("Something went wrong");
-        }
-        return res.json(); //res => JSON
-      })
-      .then((show) => {
-        setShow(show); //update with fetched data
-        setLoading(false); //fetching is done
-      })
-
-      .catch((error) => {
-        setError(error); //store error
-        setLoading(false);
-      });
-  }, []); //to only run once
-
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>"Something went wrong"</p>;
-
-  //rendering podcast data
   return (
-    <div className="">
-    {aplhSorted.map((show) => (
-      <div key= {show.id} className="">
-        <img src={show.image} alt={show.title} className=""/>
-        <h2 className="">{show.title}</h2> 
-        <div className="">
-        <p>Total Seasons: {show.seasons}</p>
-        <p>Last Updated:</p>
-            
-          }
-        }
+    <div>
+      <h1>Podcast Cloud</h1>
+<div> {/*buttons to filter genre*/} 
 
+  <button onClick = {() => filterByGenre(null)}>All Genres</button>
+  <button onClick = {() => filterByGenre(1)}>Personal Growth</button>
+  <button onClick = {() => filterByGenre(2)}>Investigative Journalism</button>
+  <button onClick = {() => filterByGenre(3)}>History</button>
+  <button onClick = {() => filterByGenre(4)}>Comedy</button>
+  <button onClick = {() => filterByGenre(5)}>Entertainment</button>
+  <button onClick = {() => filterByGenre(6)}>Business</button>
+  <button onClick = {() => filterByGenre(7)}>Fiction</button>
+  <button onClick = {() => filterByGenre(8)}>News</button>
+  <button onClick = {() => filterByGenre(9)}>Kids & Family</button>
+</div>
+
+{/*list of shows*/} 
+<div>
+  <h2>Shows</h2>
+  {filteredShows.map((show) => (
+    <div key= {show.id}>
+      <h3>{show.title}</h3>
+      <img
+      src={show.image}
+      alt={show.title}
+      style= />
+
+      <p>{show.description}</p>
+      <button onClick={() => showById(show.id)}>View Show Details</button>
       </div>
-      </div>
-    ))}
-  )
-}
-}
+  ))}
+</div>
+
 export default App;
