@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { podcastService } from "../services/podcastService";
+import GenreFilterBtn from "./GenreFilterBtn"
+import ShowList from "./ShowList"
 
 //state vars
 function App() {
@@ -65,14 +67,7 @@ function App() {
           {showId && (
             <div>
               {/*</div><button onClick={() =>setShowId(null)}></button>Close</button>*/}
-              <h2>{showId.title}</h2>
-              <img src={showId.image} alt={showId.title} />
-              <p>{showId.description}</p>
-              <p>Total Seasons: {showId.seasons}</p>
-              <p>
-                Last Updated:{""}{" "}
-                {new Date(showId.updated).toLocaleDateString()}
-              </p>
+             
             </div>
           )}
         </div>
