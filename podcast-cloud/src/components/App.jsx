@@ -19,13 +19,20 @@ const fetchAllShows = async() => {
     setShows(shows)
   } catch (error) {
     setError(error.message)
+    setLoading(false)
   }
   }
 
+ //fetch spesific show
+ const fetchShowInfo = (id) => {
+  try {
+    const showInfo = await podcastService.showById(id)
+    setShowId(showId)
+  } catch (error) {
+    setError(error.message)
+  }
+  } 
   
-  
-
- 
   //filtering shows by genre
   const filterByGenre = (genreId) => {
     setFilterGenre(genreId) //setting the genre selected
@@ -41,9 +48,13 @@ const filteredShows = filterGenre ? shows.filter((show) => show.genres.includes(
 
 
   return (
-       
-    if (loading){ return <p>Loading...</p>}
-    if (error) {return <p>Error: {error}</p>}
+   <div>  
+{loading && <p>Loading...</p>}
+{error && <p>Error: {error}</p>}
+
+{!loading && !error && (
+
+
     <div>
       <h1>Podcast Cloud</h1>
 <div> {/*buttons to filter genre*/} 
@@ -93,5 +104,6 @@ const filteredShows = filterGenre ? shows.filter((show) => show.genres.includes(
 )}
 
 </div>
+</div>  
   )}
 export default App;
