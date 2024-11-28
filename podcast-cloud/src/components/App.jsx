@@ -13,6 +13,7 @@ function App() {
     try {
       const shows = await podcastService.fetchAllShows();
       setShows(shows);
+      setLoading(false);
     } catch (error) {
       setError(error.message);
       setLoading(false);
@@ -88,6 +89,7 @@ function App() {
           {/*details of show selected*/}
           {showId && (
             <div>
+              {/*</div><button onClick={() =>setShowId(null)}></button>Close</button>*/}
               <h2>{showId.title}</h2>
               <img src={showId.image} alt={showId.title} />
               <p>{showId.description}</p>
