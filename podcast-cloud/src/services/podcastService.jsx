@@ -12,8 +12,8 @@ export const podcastService = {
       const aplhSorted = data.sort((a, b) => a.title.localeCompare(b.title));
       setShows(aplhSorted);
     } catch (err) {
-      console.error("Fetching shows failed:", error);
-      throw error;
+      console.error("Fetching shows failed:", err);
+      throw err;
     }
   },
 

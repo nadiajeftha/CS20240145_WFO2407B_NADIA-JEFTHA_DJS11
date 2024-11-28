@@ -6,20 +6,23 @@ import reactRefresh from "eslint-plugin-react-refresh";
 import babelParser from "@babel/eslint-parser";
 
 export default [
-  { ignores: ["dist"] },
+  { ignores: ["dist", "node_modules"] },
   {
     files: ["**/*.{js,jsx}"],
     languageOptions: {
       parser: babelParser,
-      ecmaVersion: 2020,
-      globals: globals.browser,
+      ecmaVersion: "latest",
+      sourceType: "module",
+      globals: {
+        ...globals.browser,
+        ...globals.node,
+      },
       parserOptions: {
-        ecmaVersion: "latest",
         ecmaFeatures: { jsx: true },
-        sourceType: "module",
       },
     },
-    settings: { react: { version: "18.3" } },
+
+    settings: { react: { version: "detect" } },
     plugins: {
       react,
       "react-hooks": reactHooks,
