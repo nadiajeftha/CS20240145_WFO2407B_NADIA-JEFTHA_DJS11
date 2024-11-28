@@ -6,8 +6,17 @@ const Podcasts = () => {
     const [sortCriteria, setSortCriteria] = useState('')
 }
 useEffect(() => {
+const fetchPodcasts = async()=> {
+    try {
+        const data= await podcastService.fetchAllShows()
+        setPodcasts(data)
+    } catch (error) {
+        console.error("Error:",error)
+    }
 
-})
+}
+fetchPodcasts()
+},[])
 
 const sortPodcasts= () => {
 
