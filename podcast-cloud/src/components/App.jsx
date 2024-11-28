@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-
+import { podcastService } from "../services/podcastService";
 
 
   //state vars
@@ -13,40 +13,18 @@ import { useState, useEffect } from "react";
   const API_URL=  "https://podcast-api.netlify.app/" //fetch show data from endpoint
   const SHOW_ID_PATH= "id/"
 
-
-  const fetchAllShows = async () => {
-    setLoading(true)
-    setError(null)
-    try {
-      const res = await fetch (API_URL)
-      if (!res.ok) throw new Error ("Failed to fetch shows.")
-
-        const data = await res.json()
-        const aplhSorted = data.sort((a,b) => //sorts title of shows alphabetically
-    a.title.localeCompare (b.title))
-  setShows(aplhSorted)
-} catch (err) {
-  setError (err.message) 
-} finally {
-  setLoading(false)
-}
- }
-  
- //fetching data from a spesific show
- const showById = async (id) => {
-  setLoading(true)
-  setError(null)
+const fetchAllShows = async() => {
   try {
-    const res = await fetch(API_URL + SHOW_ID_PATH + id)
-    if (!res.ok) throw new Error ("Failed to fetch show details.")
-      const data = await res.json()
-    setShowId(data)
-} catch (err) {
-  setError(err.message)
-} finally {
-  setLoading(false)
-}
+    const shows = await podcastService.fetchAllShows()
+    setShows(shows)
+  } catch (error) {
+    setError(error.message)
   }
+  }
+
+  
+  
+
  
   //filtering shows by genre
   const filterByGenre = (genreId) => {
@@ -59,12 +37,13 @@ const filteredShows = filterGenre ? shows.filter((show) => show.genres.includes(
  //fetch data from API 
   useEffect(() => {
     fetchAllShows() } , [] )
-   
-    if (loading){ return <p>Loading...</p>}
-    if (error) {return <p>Error: {error}</p>}
+
 
 
   return (
+       
+    if (loading){ return <p>Loading...</p>}
+    if (error) {return <p>Error: {error}</p>}
     <div>
       <h1>Podcast Cloud</h1>
 <div> {/*buttons to filter genre*/} 
@@ -93,7 +72,7 @@ const filteredShows = filterGenre ? shows.filter((show) => show.genres.includes(
       style={} />
 
       <p>{show.description}</p>
-      <button onClick={() => showById(show.id)}>View Show Details</button>
+      <button onClick={() => setShowId(show.id)}>View Show Details</button>
       </div>
   ))}
 </div>
