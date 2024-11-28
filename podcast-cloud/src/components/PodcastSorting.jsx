@@ -14,3 +14,5 @@ const sortPodcasts= () => {
 }
 
 return ()
+
+export default Podcasts
