@@ -1,4 +1,4 @@
-import React from "raect";
+import React from "react";
 
 const ShowList = ({ filteredShows, fetchShowInfo }) => {
   return (

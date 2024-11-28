@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { podcastService } from "../services/podcastService";
-import GenreFilterBtn from "./GenreFilterBtn"
-import ShowList from "./ShowList"
+import GenreFilterBtn from "./GenreFilterBtn";
+import ShowList from "./ShowList";
+import ShowDetails from "./ShowDetails";
 
 //state vars
 function App() {
@@ -11,6 +12,7 @@ function App() {
   const [error, setError] = useState(null); //error=stores errors while fetching , setError=update
   const [filterGenre, setFilterGenre] = useState(null); //filterGenre=filter selected genre, setFilterGenre=update
 
+  //fetching all shows from podcastService component
   const fetchAllShows = async () => {
     try {
       const shows = await podcastService.fetchAllShows();
@@ -22,7 +24,7 @@ function App() {
     }
   };
 
-  //fetch spesific show
+  //fetching spesific show details by id
   const fetchShowInfo = async (id) => {
     try {
       const showInfo = await podcastService.showById(id);
@@ -37,15 +39,15 @@ function App() {
     setFilterGenre(genreId); //setting the genre selected
   };
 
-  //filtered shows
-  const filteredShows = filterGenre
-    ? shows.filter((show) => show.genres.includes(filterGenre))
-    : shows;
-
-  //fetch data from API
+  //fetching shows when comp is done mounting
   useEffect(() => {
     fetchAllShows();
   }, []);
+
+  //filter shows based on genre that is selected
+  const filteredShows = filterGenre
+    ? shows.filter((show) => show.genres.includes(filterGenre))
+    : shows;
 
   return (
     <div>
@@ -55,20 +57,10 @@ function App() {
       {!loading && !error && (
         <div>
           <h1>Podcast Cloud</h1>
-
-          {/*list of shows*/}
-          <div>
-           
-              </div>
-            ))}
-          </div>
-
-          {/*details of show selected*/}
+          <GenreFilter filterByGenre={setFilterGenre} />
+          <ShowList shows={filteredShows} fetchShowInfo={fetchShowInfo} />
           {showId && (
-            <div>
-              {/*</div><button onClick={() =>setShowId(null)}></button>Close</button>*/}
-             
-            </div>
+            <ShowDetails showId={showId} onClose={() => setShowId(null)} />
           )}
         </div>
       )}
