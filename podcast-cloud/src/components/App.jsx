@@ -53,20 +53,10 @@ function App() {
       {!loading && !error && (
         <div>
           <h1>Podcast Cloud</h1>
-          <div> {/*buttons to filter genre*/}</div>
 
           {/*list of shows*/}
           <div>
-            <h2>Shows</h2>
-            {filteredShows.map((show) => (
-              <div key={show.id}>
-                <h3>{show.title}</h3>
-                <img src={show.image} alt={show.title} />
-
-                <p>{show.description}</p>
-                <button onClick={() => fetchShowInfo(show.id)}>
-                  View Show Details
-                </button>
+           
               </div>
             ))}
           </div>
