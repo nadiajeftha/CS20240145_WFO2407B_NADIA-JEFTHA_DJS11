@@ -1,3 +1,10 @@
+import {
+  Preview,
+  Show,
+  Season,
+  Episode,
+  Genre,
+} from "../services/dataStructures";
 const API_URL = "https://podcast-api.netlify.app/"; //fetch show data from endpoint
 const SHOW_ID_PATH = "id/";
 

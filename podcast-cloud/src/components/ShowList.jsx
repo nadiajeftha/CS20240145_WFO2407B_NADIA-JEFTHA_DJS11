@@ -1,4 +1,11 @@
 import React from "react";
+import {
+  Preview,
+  Show,
+  Season,
+  Episode,
+  Genre,
+} from "../services/dataStructures";
 
 const ShowList = ({ filteredShows, fetchShowInfo }) => {
   return (

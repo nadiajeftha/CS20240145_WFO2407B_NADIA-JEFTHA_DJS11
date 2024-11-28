@@ -3,6 +3,13 @@ import { podcastService } from "../services/podcastService";
 import GenreFilterBtn from "./GenreFilterBtn";
 import ShowList from "./ShowList";
 import ShowDetails from "./ShowDetails";
+import {
+  Preview,
+  Show,
+  Season,
+  Episode,
+  Genre,
+} from "../services/dataStructures";
 
 //state vars
 function App() {
