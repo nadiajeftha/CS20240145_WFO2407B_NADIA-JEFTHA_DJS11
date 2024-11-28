@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { podcastService } from "../services/podcastService";
 
 //state vars
 function App() {
-  const [shows, setShows] = useState([]); //shows=store fetched show data, setShows=update
+  const [shows, setShows] = useState([]); //shows=store fetched show data, setShowss=update
   const [showId, setShowId] = useState(null); //showId=storing spesific show, setShowId=updte
   const [loading, setLoading] = useState(true); //loading=data still being fetched? , setLoading=update
   const [error, setError] = useState(null); //error=stores errors while fetching , setError=update
@@ -78,7 +78,7 @@ function App() {
                 <img src={show.image} alt={show.title} />
 
                 <p>{show.description}</p>
-                <button onClick={() => setShowId(show.id)}>
+                <button onClick={() => fetchShowInfo(show.id)}>
                   View Show Details
                 </button>
               </div>

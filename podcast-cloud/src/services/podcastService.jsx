@@ -9,11 +9,10 @@ export const podcastService = {
 
       const data = await res.json();
       //sorts title of shows alphabetically
-      const aplhSorted = data.sort((a, b) => a.title.localeCompare(b.title));
-      setShows(aplhSorted);
-    } catch (err) {
-      console.error("Fetching shows failed:", err);
-      throw err;
+      return data.sort((a, b) => a.title.localeCompare(b.title));
+    } catch (error) {
+      console.error("Fetching shows failed:", error);
+      throw error;
     }
   },
 
@@ -24,9 +23,9 @@ export const podcastService = {
       if (!res.ok) throw new Error("Failed to fetch show details.");
 
       return await res.json();
-    } catch (err) {
-      console.error("Fetching show details failed:", err);
-      throw err;
+    } catch (error) {
+      console.error("Fetching show details failed:", error);
+      throw error;
     }
   },
 };
