@@ -3,13 +3,6 @@ import { podcastService } from "../services/podcastService";
 import GenreFilterBtn from "./GenreFilterBtn";
 import ShowList from "./ShowList";
 import ShowDetails from "./ShowDetails";
-import {
-  Preview,
-  Show,
-  Season,
-  Episode,
-  Genre,
-} from "../services/dataStructures";
 import Loading from "./Loading";
 
 //state vars
@@ -42,30 +35,25 @@ function App() {
     }
   };
 
-  //filtering shows by genre
-  const filterByGenre = (genreId) => {
-    setFilterGenre(genreId); //setting the genre selected
-  };
-
   //fetching shows when comp is done mounting
   useEffect(() => {
     fetchAllShows();
   }, []);
 
-  //filter shows based on genre that is selected
+  //filtering shows by genre
   const filteredShows = filterGenre
-    ? shows.filter((show) => show.genres.includes(filterGenre))
+    ? shows.filter((show) => show.genre.includes(filterGenre))
     : shows;
 
   return (
     <div>
-      {loading && <p>Loading...</p>}
+      {loading && <Loading />}
       {error && <p>Error: {error}</p>}
 
       {!loading && !error && (
         <div>
           <h1>Podcast Cloud</h1>
-          <GenreFilter filterByGenre={setFilterGenre} />
+          <GenreFilterBtn filterByGenre={setFilterGenre} />
           <ShowList shows={filteredShows} fetchShowInfo={fetchShowInfo} />
           {showId && (
             <ShowDetails showId={showId} onClose={() => setShowId(null)} />
