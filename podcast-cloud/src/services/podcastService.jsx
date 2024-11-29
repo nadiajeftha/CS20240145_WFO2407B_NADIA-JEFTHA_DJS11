@@ -21,7 +21,7 @@ export const podcastService = {
   //fetching data from a spesific show
   showById: async (id) => {
     try {
-      const res = await fetch(`${API_URL} ${SHOW_ID_PATH} ${id}`);
+      const res = await fetch(`${API_URL}${SHOW_ID_PATH}${id}`);
       if (!res.ok) throw new Error("Failed to fetch show details.");
 
       return await res.json();
@@ -34,7 +34,7 @@ export const podcastService = {
   //fetching data for a spesific genre
   genreById: async (id) => {
     try {
-      const res = await fetch(`${API_URL} ${GENRE_ID_PATH} ${id}`);
+      const res = await fetch(`${API_URL}${GENRE_ID_PATH}${id}`);
       if (!res.ok) throw new Error("Failed to fetch genre details.");
 
       return await res.json();
