@@ -3,7 +3,7 @@ import {
   Preview,
   Show,
   Season,
-  Episode,
+  Episodes,
   Genre,
 } from "../services/dataStructures";
 
