@@ -1,15 +1,10 @@
-import {
-  Preview,
-  Show,
-  Season,
-  Episode,
-  Genre,
-} from "../services/dataStructures";
-const API_URL = "https://podcast-api.netlify.app/"; //fetch show data from endpoint
-const SHOW_ID_PATH = "id/";
+const API_URL = "https://podcast-api.netlify.app/"; //base url
+const SHOW_ID_PATH = "id/"; //spesific show details
+const GENRE_ID_PATH = "genre/"; //spesific genre details
 
 export const podcastService = {
   fetchAllShows: async () => {
+    //fetching previews
     try {
       const res = await fetch(API_URL);
       if (!res.ok) throw new Error("Failed to fetch shows.");
@@ -26,12 +21,25 @@ export const podcastService = {
   //fetching data from a spesific show
   showById: async (id) => {
     try {
-      const res = await fetch(API_URL + SHOW_ID_PATH + id);
+      const res = await fetch(`${API_URL} ${SHOW_ID_PATH} ${id}`);
       if (!res.ok) throw new Error("Failed to fetch show details.");
 
       return await res.json();
     } catch (error) {
       console.error("Fetching show details failed:", error);
+      throw error;
+    }
+  },
+
+  //fetching data for a spesific genre
+  genreById: async (id) => {
+    try {
+      const res = await fetch(`${API_URL} ${GENRE_ID_PATH} ${id}`);
+      if (!res.ok) throw new Error("Failed to fetch genre details.");
+
+      return await res.json();
+    } catch (error) {
+      console.error("Fetching genre details failed:", error);
       throw error;
     }
   },

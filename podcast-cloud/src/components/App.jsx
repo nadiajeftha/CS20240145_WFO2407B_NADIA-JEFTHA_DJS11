@@ -10,6 +10,7 @@ import {
   Episode,
   Genre,
 } from "../services/dataStructures";
+import Loading from "./Loading";
 
 //state vars
 function App() {
