@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setCurrentEpisode, togglePlayPause } from "./redux/episodeActions";
+import {
+  setCurrentEpisode,
+  togglePlayPause,
+  setEpisodeQueue,
+} from "./redux/episodeActions";
 
 const EpisodePlayer = () => {
   const dispatch = useDispatch();
@@ -15,13 +19,17 @@ const EpisodePlayer = () => {
   };
 
   const handleNext = () => {
-    const currentIndex = episodeQueue.findIndex(ep.id === setCurrentEpisode.id);
+    const currentIndex = episodeQueue.findIndex(
+      (ep) => ep.id === setCurrentEpisode.id
+    );
     const nextEpisode = episodeQueue[(currentIndex + 1) % episodeQueue.length];
     dispatch(setCurrentEpisode(nextEpisode));
   };
 
   const handlePrevious = () => {
-    const currentIndex = episodeQueue.findIndex(ep.id === setCurrentEpisode.id);
+    const currentIndex = episodeQueue.findIndex(
+      (ep) => ep.id === setCurrentEpisode.id
+    );
     const previousEpisode =
       episodeQueue[
         (currentIndex - 1 + episodeQueue.length) % episodeQueue.length
@@ -44,7 +52,9 @@ const EpisodePlayer = () => {
   useEffect(() => {
     if (audio) {
       if (isPlaying) {
-        audio.play();
+        audio
+          .play()
+          .catch((error) => console.error("Error playing audio: ", error));
       } else {
         audio.pause();
       }

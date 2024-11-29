@@ -19,8 +19,9 @@ function App() {
       const shows = await podcastService.fetchAllShows();
       setShows(shows);
       setLoading(false);
+
     } catch (error) {
-      setError(error.message);
+      setError(error?.message || "An error occurred");
       setLoading(false);
     }
   };
@@ -31,7 +32,7 @@ function App() {
       const showInfo = await podcastService.showById(id);
       setShowId(showInfo);
     } catch (error) {
-      setError(error.message);
+      setError(error?.message || "An error occurred");
     }
   };
 
