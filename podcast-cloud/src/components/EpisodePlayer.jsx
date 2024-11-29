@@ -1,48 +1,72 @@
-import React,{useEffect} from "react"
-import {useSelector,useDispatch} from "react-redux"
-import {setCurrentEpisode,togglePlayPause} from "./redux/episodeActions"
+import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { setCurrentEpisode, togglePlayPause } from "./redux/episodeActions";
 
-const EpisodePlayer =() => {
-    const dispatch= useDispatch()
-    const {setCurrentEpisode,isPlaying,episodeQueue} = useSelector(state => state.episode)
+const EpisodePlayer = () => {
+  const dispatch = useDispatch();
+  const { currentEpisode, isPlaying, episodeQueue } = useSelector(
+    (state) => state.episode
+  );
 
-    const handlePlayPause=() => {
-        dispatch(togglePlayPause())
+  const [audio, setAudio] = useState(null);
+
+  const handlePlayPause = () => {
+    dispatch(togglePlayPause());
+  };
+
+  const handleNext = () => {
+    const currentIndex = episodeQueue.findIndex(ep.id === setCurrentEpisode.id);
+    const nextEpisode = episodeQueue[(currentIndex + 1) % episodeQueue.length];
+    dispatch(setCurrentEpisode(nextEpisode));
+  };
+
+  const handlePrevious = () => {
+    const currentIndex = episodeQueue.findIndex(ep.id === setCurrentEpisode.id);
+    const previousEpisode =
+      episodeQueue[
+        (currentIndex - 1 + episodeQueue.length) % episodeQueue.length
+      ];
+    dispatch(setCurrentEpisode(previousEpisode));
+  };
+
+  useEffect(() => {
+    if (currentEpisode) {
+      const newAudio = new Audio(currentEpisode.file);
+      setAudio(newAudio);
+
+      return () => {
+        newAudio.pause();
+        setAudio(null);
+      };
     }
-}
+  }, [currentEpisode]);
 
-const handleNext=() => {
-    const currentIndex=episodeQueue.findIndex(ep.id === setCurrentEpisode.id)
-    const nextEpisode=episodeQueue[(currentIndex + 1)  % episodeQueue.length]
-    dispatch(setCurrentEpisode(nextEpisode))
-}
+  useEffect(() => {
+    if (audio) {
+      if (isPlaying) {
+        audio.play();
+      } else {
+        audio.pause();
+      }
 
-const handlePrevious=() => {
-    const currentIndex=episodeQueue.findIndex(ep.id === setCurrentEpisode.id)
-    const previousEpisode=episodeQueue[(currentIndex - 1 + episodeQueue.length)  % episodeQueue.length]
-    dispatch(setCurrentEpisode(previousEpisode))
-}
+      return () => {
+        audio.pause();
+      };
+    }
+  }, [isPlaying, audio]);
 
-useEffect(() => {
-    if(currentEpisode) {
-        if(isPlaying) {
+  if (!currentEpisode) {
+    return <p>Select an episode to play</p>;
+  }
 
-        }else {
+  return (
+    <div>
+      <h3>{currentEpisode.title}</h3>
+      <button onClick={handlePlayPause}>{isPlaying ? "Pause" : "Play"}</button>
+      <button onClick={handlePrevious}>Previous</button>
+      <button onClick={handleNext}>Next</button>
+    </div>
+  );
+};
 
-        }}
-}, [currentEpisode,isPlaying])
-
-return (
-<div>
-    
-    <h3>{currentEpisode.title}</h3>
-    <button onClick={handlePlayPause}>{isPlaying ? 'Pause' : 'Play'}</button>
-    <button onClick={handlePrevious}>Previous</button>
-    <button onClick={handleNext}>Next</button>
-</div>
-) : (
-    <p>Select an episode to play</p>
-)}
-</div>
-
-export default EpisodePlayer
+export default EpisodePlayer;
