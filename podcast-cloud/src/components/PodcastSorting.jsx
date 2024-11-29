@@ -1,6 +1,6 @@
 import React, {useEffect,useState} from 'react'
 import { podcastService} from '../services/podcastService'
-import { Preview , Show,Season,  Episode , Genre  } from "../services/dataStructures"
+import Button from "./Button";
 
 const Podcasts = () => {
     const [podcasts, setPodcasts] = useState([])

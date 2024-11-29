@@ -5,6 +5,7 @@ import {
   togglePlayPause,
   setEpisodeQueue,
 } from "./redux/episodeActions";
+import button from "./Button";
 
 const EpisodePlayer = () => {
   const dispatch = useDispatch();
@@ -72,9 +73,9 @@ const EpisodePlayer = () => {
   return (
     <div>
       <h3>{currentEpisode.title}</h3>
-      <button onClick={handlePlayPause}>{isPlaying ? "Pause" : "Play"}</button>
-      <button onClick={handlePrevious}>Previous</button>
-      <button onClick={handleNext}>Next</button>
+      <Button onClick={handlePlayPause}>{isPlaying ? "Pause" : "Play"}</Button>
+      <Button onClick={handlePrevious}>Previous</Button>
+      <Button onClick={handleNext}>Next</Button>
     </div>
   );
 };

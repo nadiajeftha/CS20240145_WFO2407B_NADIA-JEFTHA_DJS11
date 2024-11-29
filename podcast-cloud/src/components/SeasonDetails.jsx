@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  Preview,
-  Show,
-  Season,
-  Episode,
-  Genre,
-} from "../services/dataStructures";
+import Button from "./Button";
 
 const SeasonDetails = ({ season, onClose }) => {
   return (
@@ -17,7 +11,7 @@ const SeasonDetails = ({ season, onClose }) => {
           <p>{episode.description}</p>
         </div>
       ))}
-      <button onClick={onClose}>Back to Show</button>
+      <Button onClick={onClose}>Back to Show</Button>
     </div>
   );
 };

@@ -1,25 +1,19 @@
 import React from "react";
-import {
-  Preview,
-  Show,
-  Season,
-  Episodes,
-  Genre,
-} from "../services/dataStructures";
+import Button from "./Button";
 
 const GenreFilter = ({ filterByGenre }) => {
   return (
     <div>
-      <button onClick={() => filterByGenre(null)}>All Genres</button>
-      <button onClick={() => filterByGenre(1)}>Personal Growth</button>
-      <button onClick={() => filterByGenre(2)}>Investigative Journalism</button>
-      <button onClick={() => filterByGenre(3)}>History</button>
-      <button onClick={() => filterByGenre(4)}>Comedy</button>
-      <button onClick={() => filterByGenre(5)}>Entertainment</button>
-      <button onClick={() => filterByGenre(6)}>Business</button>
-      <button onClick={() => filterByGenre(7)}>Fiction</button>
-      <button onClick={() => filterByGenre(8)}>News</button>
-      <button onClick={() => filterByGenre(9)}>Kids & Family</button>
+      <Button onClick={() => filterByGenre(null)}>All Genres</Button>
+      <Button onClick={() => filterByGenre(1)}>Personal Growth</Button>
+      <Button onClick={() => filterByGenre(2)}>Investigative Journalism</Button>
+      <Button onClick={() => filterByGenre(3)}>History</Button>
+      <Button onClick={() => filterByGenre(4)}>Comedy</Button>
+      <Button onClick={() => filterByGenre(5)}>Entertainment</Button>
+      <Button onClick={() => filterByGenre(6)}>Business</Button>
+      <Button onClick={() => filterByGenre(7)}>Fiction</Button>
+      <Button onClick={() => filterByGenre(8)}>News</Button>
+      <Button onClick={() => filterByGenre(9)}>Kids & Family</Button>
     </div>
   );
 };

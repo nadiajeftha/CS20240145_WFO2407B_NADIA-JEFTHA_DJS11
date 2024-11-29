@@ -1,25 +1,20 @@
 import React from "react";
-import {
-  Preview,
-  Show,
-  Season,
-  Episodes,
-  Genre,
-} from "../services/dataStructures";
+import Card from "./Card";
+import Button from "./Button";
 
 const ShowList = ({ filteredShows, fetchShowInfo }) => {
   return (
-    <div>
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       <h2>All Shows</h2>
       {filteredShows.map((show) => (
-        <div key={show.id}>
-          <h3>{show.title}</h3>
+        <Card key={show.id} className="mb-4">
+          <h3 className="text-lg font-semibold">{show.title}</h3>
           <img src={show.image} alt={show.title} />
-          <p>{show.description}</p>
-          <button onClick={() => fetchShowInfo(show.id)}>
+          <p className="text-sm text-gray-700">{show.description}</p>
+          <Button onClick={() => fetchShowInfo(show.id)}>
             View Show Details
-          </button>
-        </div>
+          </Button>
+        </Card>
       ))}
     </div>
   );

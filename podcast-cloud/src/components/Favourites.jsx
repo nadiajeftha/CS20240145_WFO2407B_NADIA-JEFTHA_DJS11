@@ -4,6 +4,7 @@ import {
   addFavourite,
   removeFavourite,
 } from "../redux/actions/favouritesActions";
+import Button from "./Button";
 
 const Favourites = () => {
   const dispatch = useDispatch();
@@ -29,9 +30,9 @@ const Favourites = () => {
           {favourites.map((episode) => (
             <li key={episode.id}>
               {episode.title}
-              <button onClick={() => handleRemoveFromFavourites(episode)}>
+              <Button onClick={() => handleRemoveFromFavourites(episode)}>
                 Remove
-              </button>
+              </Button>
             </li>
           ))}
         </ul>

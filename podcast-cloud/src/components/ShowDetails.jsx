@@ -1,11 +1,6 @@
 import React from "react";
-import {
-  Preview,
-  Show,
-  Season,
-  Episodes,
-  Genre,
-} from "../services/dataStructures";
+
+import Button from "./Button";
 
 const ShowDetails = ({ showId }) => {
   return (
@@ -17,7 +12,7 @@ const ShowDetails = ({ showId }) => {
       <p>
         Last Updated:{""} {new Date(showId.updated).toLocaleDateString()}
       </p>
-      <button onClick={onClose}>Close Details</button>
+      <Button onClick={onClose}>Close Details</Button>
     </div>
   );
 };

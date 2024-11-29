@@ -1,4 +1,5 @@
 import React from "react";
+import Button from "./Button";
 
 const Loading = () => {
   return <h4>Loading...</h4>;

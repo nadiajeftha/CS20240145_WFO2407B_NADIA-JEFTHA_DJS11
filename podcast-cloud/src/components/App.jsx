@@ -47,13 +47,13 @@ function App() {
     : shows;
 
   return (
-    <div>
+    <div className="container mx-auto p-4">
       {loading && <Loading />}
       {error && <p>Error: {error}</p>}
 
       {!loading && !error && (
         <div>
-          <h1>Podcast Cloud</h1>
+          <h1 className="text-3xl font-bold mb-6 text-center">Podcast Cloud</h1>
           <GenreFilterBtn filterByGenre={setFilterGenre} />
           <ShowList shows={filteredShows} fetchShowInfo={fetchShowInfo} />
           {showId && (
