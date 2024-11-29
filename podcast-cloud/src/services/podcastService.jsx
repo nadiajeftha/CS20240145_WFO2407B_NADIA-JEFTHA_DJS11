@@ -6,10 +6,10 @@ export const podcastService = {
   fetchAllShows: async () => {
     //fetching previews
     try {
-      const res = await fetch(API_URL);
+      const res = await fetch(API_URL); //fetching show previews
       if (!res.ok) throw new Error("Failed to fetch shows.");
 
-      const data = await res.json();
+      const data = await res.json(); // returning array of previews
       //sorts title of shows alphabetically
       return data.sort((a, b) => a.title.localeCompare(b.title));
     } catch (error) {
